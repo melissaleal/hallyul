@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* everything */
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: var(--fontePrincipal);
+}
+
+/* variable declaration */
+
+:root {
+    --fontePrincipal: Quicksand;
+    --cor01: #EEE5E9;
+    --roxo01: #69385C;
+    --cor03: #FFE5D4;
+    --cor04: #FF66B3;
+    --cor05: #E27396;
+    --roxo02: #BF88B0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* header e nav */
+
+#mainheader {
+    background-color: var(--cor01);
+    color: var(--roxo01);
+
+    padding: 20px;
+}
+
+.nav-item{
+    margin: 10px;
+}
+
+.btnNav{
+    background-color: var(--roxo01);
+
+    padding: 5px 15px;
+
+    border-radius: 20px;
+}
+
+.btnNav a {
+    color: var(--cor01);
+    text-decoration: none;
+}
+
+/* main */
+
+main {
+    flex: 1;
+    background-color: var(--cor01);
+
+    height: fit-content;
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+/* footer */
+
+#footer {
+    background-color: var(--cor05);
+    padding: 20px;
+    color: var(--cor01);
+}
+
+/* alignment */
+
+.centertitle {
+    padding: 20px;
+}
+
+.centertitle h3 {
+    color: var(--roxo01);
+}
+
+.lefttitle {
+    padding: 20px;
+}
+
+/* forms */
+
+.formuser{
+    width: 90%;
+    margin: auto;
+}
+
+.formuser div.row {
+    margin: 20px;
+}
+
+.formuser a {
+    color: var(--roxo02);
+}
+
+/* glass container */
+
+.glasscontainer{
+    padding: 40px;
+    margin: 40px;
+    min-height: 300px;
+    max-width: 90%;
+
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+
+    text-align: left;
+    background: #f2f2f24a;
+}
+
+.glasscontainer div{
+    height: 100px;
+    margin: 40px 0px;
+}
+
+.glasscontainer h2{
+    color: var(--cor05);
+}
+
+/* cegs */
+
+.cardceg{
+    background-color: #f2f2f24a;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.048);
+    transition: transform 0.3s ease-in-out;
+    height: 100%;
+}
+
+/* btn */
+
+.btnpurple{
+    background-color:var(--cor05);
+    color: var(--cor01);
+    text-decoration: none;
+    text-align: center;
+
+    margin: 0px 20px 20px 20px;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.btnpurple:hover{
+    background-color:var(--roxo01);
+    text-decoration: none;
+}
