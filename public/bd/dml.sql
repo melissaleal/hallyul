@@ -62,8 +62,8 @@ INSERT INTO `hallyul`.`compra` (`nome`) VALUES
 
 -- Inserindo na tabela compraGOM
 INSERT INTO `hallyul`.`compraGOM` (`idCompra`, `idGOM`) VALUES
-  (1, 1),
-  (2, 2);
+  (1, 3),
+  (2, 4);
 
 -- Inserindo na tabela lote
 INSERT INTO `hallyul`.`lote` (`idCompra`, `dtCompra`, `dtPgto`, `pgto`) VALUES

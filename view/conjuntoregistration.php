@@ -1,6 +1,12 @@
 <?php
 include '../controller/functions.php';
 authenticate();
+include '../model/connection.php';
+
+$sql = "SELECT * FROM evento;";
+$command = $pdo->query($sql);
+$eventos = $command->fetchAll();
+
 include 'components/head.php';
 include 'components/header.php';
 ?>
@@ -13,29 +19,20 @@ include 'components/header.php';
         ?>
         <div class="">
             <form action="../controller/conjuntoinsert.php" method="POST">
-            <input type="hidden" name="gom" value="<?= $_SESSION['idUsuario']; ?>">
                 <div>
-                    <label for="name">Nome do conjunto</label>
-                    <input type="text" name="name" required>
+                    <label for="nome">Nome do conjunto</label>
+                    <input type="text" name="nome" required>
                 </div>
                 <div>
-                    <label for="description">Descrição</label>
-                    <textarea name="description" id="description" maxlength="90"></textarea>
-                </div>
-                <div>
-                    <label for="artist">Artista / Grupo</label>
-                    <select name="artist" id="artist" required>
-                        <option>Stray Kids</option>
-                        <option>Everglow</option>
-                        <option>P1Harmony</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="event">Evento</label>
-                    <select name="event" id="event" required>
-                        <option>Álbum</option>
-                        <option>Season's Greetings</option>
-                        <option>Parceria</option>
+                    <label for="evento">Evento</label>
+                    <select name="evento" id="evento" required>
+                        <?php
+                            foreach($eventos as $evento){
+                        ?>
+                            <option value="<?= $evento['id'] ?>"><?= $evento['nome'] ?></option>
+                        <?php
+                            }
+                        ?>
                     </select>
                 </div>
                 <div>

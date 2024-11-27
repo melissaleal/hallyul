@@ -5,18 +5,19 @@
     include 'components/head.php';
     include 'components/header.php';
 
-    $sql = "SELECT * FROM compraGrupo cg
-    INNER JOIN cegADM ca ON cg.idCompraGrupo = ca.idCEG
-    WHERE ca.idADM = ".$_SESSION['idUsuario'].";";
-    $command = $pdo->query($sql);
-    $cegs = $command->fetchAll();
+    $sql = "SELECT * FROM compra cm
+    INNER JOIN compraGOM cg ON cg.idCompra = cm.id WHERE cg.idGOM = :idUsuario;";
+    $command = $pdo->prepare($sql);
+    $command->bindParam(':idUsuario', $_SESSION['idUsuario']);
+    $command->execute();
+    $compras = $command->fetchAll();
 ?>
 <main>
     <div class="container-fluid">
         <div class="row">
             <?php
                 $size = 4;
-                $title = 'Suas CEGs';
+                $title = 'Suas Compras';
                 include 'components/lefttitle.php';
             ?>
         </div>
@@ -27,12 +28,12 @@
 
         <div class="row">
             <?php
-                foreach($cegs as $ceg){
+                foreach($compras as $compra){
             ?>
             <div class="col-6 mb-4">
                 <?php
-                    $nomeceg = $ceg['nomeCompraGrupo'];
-                    $cegcode = $ceg['idCompraGrupo'];
+                    $nome = $compra['nome'];
+                    $ceg = $compra['idCompra'];
                     include 'components/cardceg.php';
                 ?>
             </div>

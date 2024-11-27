@@ -8,22 +8,14 @@ include 'components/header.php';
     <div  class="container-fluid">
         <?php
         $size = 3;
-        $title = 'Cadastro de CEGs';
+        $title = 'Cadastro de compras';
         include 'components/centertitle.php';
         ?>
         <div class="">
             <form action="../controller/ceginsert.php" method="POST">
                 <div>
-                    <label for="name">Nome da CEG</label>
-                    <input type="text" name="name" required>
-                </div>
-                <div>
-                    <label for="description">Descrição</label>
-                    <textarea name="description" id="description" maxlength="90"></textarea>
-                </div>
-                <div>
-                    <label for="dti">Data de início</label>
-                    <input type="date" name="dti" required>
+                    <label for="nome">Nome da compra</label>
+                    <input type="text" name="nome" required>
                 </div>
                 <div>
                     <button>Cadastrar CEG</button>

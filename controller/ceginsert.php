@@ -2,31 +2,24 @@
     session_start();
     include '../model/connection.php';
 
-    $nomeCompraGrupo = htmlspecialchars($_POST['name']);
-    $descricao = htmlspecialchars($_POST['description']);
-    $dataInicio = htmlspecialchars($_POST['dti']);
-    $dataEncerramento = htmlspecialchars($_POST['dte']);
+    $nome = htmlspecialchars($_POST['nome']);
 
-    $sql = "INSERT INTO compraGrupo (nomeCompraGrupo, descricao, dataInicio) VALUES (:nomeCompraGrupo, :descricao, :dataInicio);";
+    $sql = "INSERT INTO compra (nome) VALUES (:nome);";
     $command = $pdo->prepare($sql);
-    $command->bindParam(":nomeCompraGrupo", $nomeCompraGrupo);
-    $command->bindParam(":descricao", $descricao);
-    $command->bindParam(":dataInicio", $dataInicio);
+    $command->bindParam(":nome", $nome);
     $command->execute();
 
-    $sql = "SELECT idCompraGrupo FROM compraGrupo WHERE nomeCompraGrupo = :nomeCompraGrupo AND  descricao = :descricao AND dataInicio = :dataInicio";
+    $sql = "SELECT id FROM compra WHERE nome = :nome";
     $command = $pdo->prepare($sql);
-    $command->bindParam(":nomeCompraGrupo", $nomeCompraGrupo);
-    $command->bindParam(":descricao", $descricao);
-    $command->bindParam(":dataInicio", $dataInicio);
+    $command->bindParam(":nome", $nome);
     $command->execute();
     $query = $command->fetch();
-    $idCompraGrupo = $query['idCompraGrupo'];
+    $id = $query['id'];
 
-    $sql = "INSERT INTO cegADM (idCEG, idADM) VALUES (:idCEG, :idADM);";
+    $sql = "INSERT INTO compraGOM (idCompra, idGOM) VALUES (:idCompra, :idGOM);";
     $command = $pdo->prepare($sql);
-    $command->bindParam(":idCEG", $idCompraGrupo);
-    $command->bindParam(":idADM", $_SESSION['idUsuario']);
+    $command->bindParam(":idCompra", $id);
+    $command->bindParam(":idGOM", $_SESSION['idUsuario']);
     $success = $command->execute();
 
 

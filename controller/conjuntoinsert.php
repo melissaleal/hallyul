@@ -2,21 +2,14 @@
     session_start();
     include '../model/connection.php';
 
-    $idUsuario = htmlspecialchars($_POST['gom']);
-    $nomeConjuntoItens = htmlspecialchars($_POST['name']);
-    $descricaoConjuntoItens = htmlspecialchars($_POST['description']);
-    $artistaConjuntoItens = htmlspecialchars($_POST['artist']);
-    $eventoConjuntoItens = htmlspecialchars($_POST['event']);
+    $nome = htmlspecialchars($_POST['nome']);
+    $evento = htmlspecialchars($_POST['evento']);
 
-    $sql = "INSERT INTO conjuntoItens (nomeConjuntoItens, artistaConjuntoItens, eventoConjuntoItens, descricaoConjuntoItens, idUsuario) VALUES (:nome, :artista, :evento, :descricao, :user);";
+    $sql = "INSERT INTO conjunto (nome, idEvento) VALUES (:nome, :evento);";
     $command = $pdo->prepare($sql);
-    $command->bindParam(":nome", $nomeConjuntoItens);
-    $command->bindParam(":descricao", $descricaoConjuntoItens);
-    $command->bindParam(":artista", $artistaConjuntoItens);
-    $command->bindParam(":evento", $eventoConjuntoItens);
-    $command->bindParam(':user', $idUsuario);
+    $command->bindParam(":nome", $nome);
+    $command->bindParam(":evento", $evento);
     $success = $command->execute();
-
 
     if ($success) {
         header("Location: http://localhost/cegs/view/index.php");//ALTERAR
