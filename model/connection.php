@@ -1,6 +1,6 @@
 <?php
     include '../public/configs/database.php';
-    $databaseType = "mysql";
+    $databasetype = "mysql";
     $server = "localhost";
     $port = 3306;
     $database = $dbname;
@@ -8,7 +8,7 @@
     $databaseUser = $user;
     $userPassword = $password;
 
-    $dsn = "$databaseType:host=$server;dbname=$database;port=$port";
+    $dsn = "$databasetype:host=$server;dbname=$database;port=$port";
 
     try{
         $pdo = new PDO($dsn, $databaseUser, $userPassword);

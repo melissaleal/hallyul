@@ -5,18 +5,11 @@
     include 'components/head.php';
     include 'components/header.php';
 
-    /*$sql = "SELECT * FROM item i 
-    INNER JOIN usuarioItem ui ON i.idItem = ui.idItem
-    WHERE ui.idUsuario = ".$_SESSION['idUsuario'].";";
-    */
-
-    $sql = "SELECT * FROM item i 
-    INNER JOIN usuarioItemLote ui ON i.idItem = ui.idItemLote
-    INNER JOIN itemLote il ON i.idItem = il.idItem
-    INNER JOIN lote l ON il.idLote = l.idLote
-    INNER JOIN compraGrupo cg ON l.idCEG = cg.idCompraGrupo
-    INNER JOIN cegADM ca ON cg.idCompraGrupo = ca.idCEG
-    WHERE ui.idUsuario = :idUsuario;";
+    $sql = "SELECT * FROM item i
+    INNER JOIN itemLote il ON i.id = il.idItem
+    INNER JOIN conjunto cn ON cn.id = i.idConjunto
+    INNER JOIN lote l ON il.idLote = l.id
+    WHERE il.idUsuario = :idUsuario;";
     $command = $pdo->prepare($sql);
     $command->bindParam(':idUsuario', $_SESSION['idUsuario']);
     $command->execute();
@@ -39,37 +32,55 @@
             ?>
             <div class="col-6 mb-4">
                 <?php
-                    $nomeitem = $item['nomeItem'];
-                    $disponibilidade = $item['disponibilidadeItem'];
-                    $status = $item['statusItem'];
-                    $descricao = $item['descricaoItem'];
-                    $preco = $item['precoItem'];
+                    $itemcode = $item['id'];
+                    $nome = $item['nome'];
+                    $descricao = $item['descricao'];
 
-                    $sql = "SELECT * FROM conjuntoItens
-                    WHERE idConjuntoItens = :conjuntocode;";
-                    $command = $pdo->prepare($sql);
-                    $command->bindParam(":conjuntocode", $item['idConjuntoItens']);
-                    $command->execute();
-                    $result = $command->fetch();
-                    $conjunto = $result['nomeConjuntoItens'];
+                    $disponibilidade = $item['disponibilidade'];
+                    $status = $item['status'];
+                    $preco = $item['preco'];
 
-                    $sql = "SELECT nomeCompraGrupo FROM compraGrupo cg
-                    WHERE cg.idCompraGrupo = :cegcode;";
+                    $sql = "SELECT nome FROM conjunto
+                    WHERE id = :conjuntocode;";
                     $command = $pdo->prepare($sql);
-                    $command->bindParam(":cegcode", $item['idCEG']);
+                    $command->bindParam(":conjuntocode", $item['idConjunto']);
                     $command->execute();
-                    $result = $command->fetch();
-                    $ceg = $result['nomeCompraGrupo'];
+                    $conj = $command->fetch();
+                    $conjunto = $conj['nome'];
 
-                    $sql = "SELECT * FROM usuario u
-                    WHERE idUsuario = :gomcode;";
+                    $sql = "SELECT * FROM compra
+                    WHERE id = :compracode;";
                     $command = $pdo->prepare($sql);
-                    $command->bindParam(":gomcode", $item['idADM']);
+                    $command->bindParam(":compracode", $item['idCompra']);
                     $command->execute();
-                    $result = $command->fetch();
-                    $gom = $result['nomeUsuario'];
+                    $compra = $command->fetch();
+                    $ceg = $compra['nome'];
                     
-                    $itemcode = $item['idItem'];
+                    $sql = "SELECT nome FROM usuario u
+                    INNER JOIN compraGOM cg ON cg.idGOM =  u.id
+                    WHERE cg.idCompra = :cegcode";
+                    $command = $pdo->prepare($sql);
+                    $command->bindParam(":cegcode", $compra['id']);
+                    $command->execute();
+                    $usuario = $command->fetch();
+                    $gom = $usuario['nome'];
+
+                    $sql = "SELECT categoria FROM tipoItem WHERE id = :tipocode;";
+                    $command = $pdo->prepare($sql);
+                    $command->bindParam(":tipocode", $item['tipoItem']);
+                    $command->execute();
+                    $tipoItem = $command->fetch();
+                    $tipo = $tipoItem['categoria'];
+                    
+                    $sql = "SELECT l.id FROM lote l
+                    INNER JOIN itemLote il ON il.idLote = l.id
+                    INNER JOIN item i ON i.id = il.idItem
+                    WHERE i.id = :itemcode;";
+                    $command = $pdo->prepare($sql);
+                    $command->bindParam(':itemcode', $itemcode);
+                    $command->execute();
+                    $idLote = $command->fetch();
+
                     include 'components/carditem2.php';
                 ?>
             </div>
